@@ -1,12 +1,15 @@
-import Header from "./shared/Header.jsx"
-import Footer from "./shared/Footer.jsx"
+import styled from "styled-components"
 
 export default function TelaHome(){
     return(
-        <div>
-            <Header />
+        <Universal>
             <h1>Esta é a Tela de Home</h1>
-            <Footer />
-        </div>
+        </Universal>
     )
 }
+
+const Universal = styled.div`
+    height: 500px;
+    margin-top: 120px;
+`
+
