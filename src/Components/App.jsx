@@ -5,20 +5,20 @@ import Context from "../Context/Context";
 import Header from "./shared/Header.jsx";
 import Footer from "./shared/Footer.jsx";
 
-import TelaHome from "./TelaHome.jsx";
-import TelaLoginCadastro from "./TelaLoginCadastro.jsx";
-import TelaProdutos from "./TelaProdutos.jsx";
-import TelaCarrinho from "./TelaCarrinho.jsx";
-import TelaCheckout from "./TelaCheckout.jsx";
+import TelaHome from "./telas/TelaHome";
+import TelaLoginCadastro from "./telas/TelaLoginCadastro";
+import TelaProdutos from "./telas/TelaProdutos.jsx";
+import TelaCarrinho from "./telas/TelaCarrinho.jsx";
+import TelaCheckout from "./telas/TelaCheckout.jsx";
 
 export default function App() {
   const [token, setToken] = React.useState("");
 
   return (
     <>
-      <Header />
       <Context.Provider value={{ token, setToken }}>
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<TelaHome />} />
             <Route path="/usuario" element={<TelaLoginCadastro />} />

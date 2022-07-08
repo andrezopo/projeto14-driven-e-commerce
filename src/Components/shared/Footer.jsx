@@ -116,6 +116,7 @@ const InfoEmpresa = styled.div`
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   p {
@@ -140,6 +141,11 @@ const IconesRedesSociais = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  div:hover{
+    cursor: pointer;
+    /* Colocar a cor de cada rede social aqui */
   }
 
   ion-icon {

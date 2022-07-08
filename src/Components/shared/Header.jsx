@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -27,14 +28,20 @@ export default function Header() {
       </HeaderInfoEmpresa>
       <HeaderPrincipal>
         <div>
-          <h1>Organic Store</h1>
+          <Link to="/">
+            <h1>Organic Store</h1>
+          </Link>
         </div>
         <IconesInteracaoUsuario>
-          <div class="areaLoginCadastro">
-            <ion-icon name="person"></ion-icon>
-            <p>Entre ou cadastre-se</p>
-          </div>
-          <ion-icon name="cart"></ion-icon>
+          <Link to="/usuario">
+            <div class="areaLoginCadastro">
+              <ion-icon name="person"></ion-icon>
+              <p>Entre ou cadastre-se</p>
+            </div>
+          </Link>
+          <Link to="/carrinho">
+            <ion-icon name="cart"></ion-icon>
+          </Link>
         </IconesInteracaoUsuario>
       </HeaderPrincipal>
     </HeaderEstilo>
@@ -99,6 +106,11 @@ const HeaderPrincipal = styled.div`
   justify-content: space-between;
   color: var(--cor-branca);
 
+  a {
+    text-decoration: none;
+    color: var(--cor-branca);
+  }
+
   h1 {
     font-family: "Gochi Hand", cursive;
     font-size: 40px;
@@ -113,6 +125,11 @@ const IconesInteracaoUsuario = styled.div`
 
   :hover {
     cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--cor-branca);
   }
 
   ion-icon {
