@@ -1,8 +1,10 @@
 import styled from "styled-components";
-
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+
+import RolarTopo from "../shared/RolarTopo";
 
 import imagem1 from "../../assets/images/carousel1.jpg";
 import imagem2 from "../../assets/images/carousel2.jpg";
@@ -69,64 +71,76 @@ function CarouselInicial() {
   );
 }
 
-function CarouselCategorias() {
+function CarouselCategorias({irCategoria}) {
   const handleDragStart = (e) => e.preventDefault();
 
   const items = [
-    <Categoria>
-      <img
-        src={frutas}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Frutas</p>
-    </Categoria>,
-    <Categoria>
-      <img
-        src={verduras}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Verduras</p>
-    </Categoria>,
-    <Categoria>
-      <img
-        src={legumes}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Legumes</p>
-    </Categoria>,
-    <Categoria>
-      <img
-        src={cereais}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Cereais</p>
-    </Categoria>,
-    <Categoria>
-      <img
-        src={ovos}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Ovos</p>
-    </Categoria>,
-    <Categoria>
-      <img
-        src={carnes}
-        alt=""
-        onDragStart={handleDragStart}
-        role="presentation"
-      />
-      <p>Carnes</p>
-    </Categoria>,
+    <span onClick={() => irCategoria("frutas")}>
+      <Categoria>
+        <img
+          src={frutas}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Frutas</p>
+      </Categoria>
+    </span>,
+    <span onClick={() => irCategoria("verduras")}>
+      <Categoria>
+        <img
+          src={verduras}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Verduras</p>
+      </Categoria>
+    </span>,
+    <span onClick={() => irCategoria("legumes")}>
+      <Categoria>
+        <img
+          src={legumes}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Legumes</p>
+      </Categoria>
+    </span>,
+    <span onClick={() => irCategoria("cereais")}>
+      <Categoria>
+        <img
+          src={cereais}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Cereais</p>
+      </Categoria>
+    </span>,
+    <span onClick={() => irCategoria("ovos")}>
+      <Categoria>
+        <img
+          src={ovos}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Ovos</p>
+      </Categoria>
+    </span>,
+    <span onClick={() => irCategoria("carnes")}>
+      <Categoria>
+        <img
+          src={carnes}
+          alt=""
+          onDragStart={handleDragStart}
+          role="presentation"
+        />
+        <p>Carnes</p>
+      </Categoria>
+    </span>,
   ];
 
   return (
@@ -150,15 +164,27 @@ function CarouselCategorias() {
   );
 }
 
-export default function TelaHome() {
+export default function TelaHome({ setCategoriaInicial }) {
+  const navigate = useNavigate();
+
+  function irCategoria(categoriaEscolhida) {
+    setCategoriaInicial(
+      categoriaEscolhida[0].toUpperCase() + categoriaEscolhida.substring(1)
+    );
+    navigate(`/produtos/${categoriaEscolhida}`);
+  }
+
   return (
     <Universal>
+      <RolarTopo />
       <CarouselImagens>
         <CarouselInicial />
       </CarouselImagens>
       <Categorias>
-        <CarouselCategorias />
-        <button>Ver todos os produtos</button>
+        <CarouselCategorias irCategoria={irCategoria}/>
+        <span onClick={() => irCategoria("todos")}>
+          <button>Ver todos os produtos</button>
+        </span>
       </Categorias>
       <InfoImportantesCompra>
         <div>
@@ -348,13 +374,14 @@ const Categorias = styled.div`
 
   button {
     height: 40px;
-    width: 30%;
+    width: 100%;
     background-color: var(--cor-branca);
     color: var(--cor-detalhes);
     border: 1px solid var(--cor-detalhes);
     border-radius: 7px;
     font-size: 16px;
     font-weight: bold;
+    padding: 0 30px;
 
     :hover {
       background-color: var(--cor-detalhes);
