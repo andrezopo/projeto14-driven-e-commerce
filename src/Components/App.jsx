@@ -5,8 +5,8 @@ import Context from "../Context/Context";
 import Header from "./shared/Header.jsx";
 import Footer from "./shared/Footer.jsx";
 
-import TelaHome from "./telas/TelaHome";
-import TelaLoginCadastro from "./telas/TelaLoginCadastro";
+import TelaHome from "./telas/TelaHome.jsx";
+import TelaLoginCadastro from "./telas/TelaLoginCadastro.jsx";
 import TelaProdutos from "./telas/TelaProdutos.jsx";
 import TelaCarrinho from "./telas/TelaCarrinho.jsx";
 import TelaCheckout from "./telas/TelaCheckout.jsx";
