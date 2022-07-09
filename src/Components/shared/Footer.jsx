@@ -66,17 +66,32 @@ export default function Footer() {
 }
 
 const FooterPrincipal = styled.div`
-  height: 240px;
+  height: 100%;
   background-color: var(--cor-header);
-  padding: 20px 150px;
+  padding: 20px 100px;
   display: flex;
   align-items: top;
   justify-content: space-around;
   color: var(--cor-branca);
+
+  @media (max-width: 935px){
+    padding: 20px 20px;
+  }
+
+  @media (max-width: 614px){
+    padding: 20px 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const InfoContato = styled.div`
   width: 50%;
+
+  @media (max-width: 614px){
+    width: 100%;
+  }
 `;
 
 const Contato = styled.div`
@@ -124,6 +139,10 @@ const InfoEmpresa = styled.div`
     margin-bottom: 10px;
     line-height: 20px;
     text-align: justify;
+  }
+
+  @media (max-width: 614px){
+    width: 100%;
   }
 `;
 

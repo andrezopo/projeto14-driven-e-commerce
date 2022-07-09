@@ -92,6 +92,12 @@ const InfoContatos = styled.div`
   p {
     font-size: 15px;
   }
+
+  @media (max-width: 630px){
+    p{
+      display: none;
+    }
+  }
 `;
 
 const RedesSociais = styled.div`
@@ -115,6 +121,12 @@ const HeaderPrincipal = styled.div`
     font-family: "Gochi Hand", cursive;
     font-size: 40px;
     cursor: pointer;
+  }
+
+  @media (max-width: 630px){
+    h1{
+      font-size: 35px;
+    }
   }
 `;
 
