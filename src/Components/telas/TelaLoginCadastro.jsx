@@ -7,7 +7,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Context from "../../Context/Context";
 import StyledButton from "../../StyledComponents/StyledButton";
 import StyledFormContainer from "../../StyledComponents/StyledFormContainer";

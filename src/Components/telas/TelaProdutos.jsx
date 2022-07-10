@@ -63,7 +63,7 @@ export default function TelaProdutos({ categoriaInicial }) {
   }
 
   function carregarProdutos() {
-    const promise = axios.get("http://localhost:5000/produtos", {
+    const promise = axios.get("https://organistore.herokuapp.com/produtos", {
       headers: {
         Categoria: categoria,
       },

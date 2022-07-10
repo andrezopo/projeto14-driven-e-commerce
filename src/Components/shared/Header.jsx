@@ -1,7 +1,12 @@
+import { useContext } from "react";
+import Context from "../../Context/Context";
+
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  const { token, name } = useContext(Context);
+
   return (
     <HeaderEstilo>
       <HeaderInfoEmpresa>
@@ -34,10 +39,17 @@ export default function Header() {
         </div>
         <IconesInteracaoUsuario>
           <Link to="/usuario">
-            <div className="areaLoginCadastro">
-              <ion-icon name="person"></ion-icon>
-              <p>Entre ou cadastre-se</p>
-            </div>
+            {token.length === 0 ? (
+              <div className="areaLoginCadastro">
+                <ion-icon name="person"></ion-icon>
+                <p>Entre ou cadastre-se</p>
+              </div>
+            ) : (
+              <div className="areaLoginCadastro">
+                <ion-icon name="person"></ion-icon>
+                <p>Bem vindo(a) {name}</p>
+              </div>
+            )}
           </Link>
           <Link to="/carrinho">
             <ion-icon name="cart"></ion-icon>
@@ -93,8 +105,8 @@ const InfoContatos = styled.div`
     font-size: 15px;
   }
 
-  @media (max-width: 630px){
-    p{
+  @media (max-width: 630px) {
+    p {
       display: none;
     }
   }
@@ -123,8 +135,8 @@ const HeaderPrincipal = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 630px){
-    h1{
+  @media (max-width: 630px) {
+    h1 {
       font-size: 35px;
     }
   }
@@ -154,6 +166,7 @@ const IconesInteracaoUsuario = styled.div`
     display: flex;
     align-items: center;
     justify-content: left;
+    margin-right: 25px;
 
     p {
       display: flex;

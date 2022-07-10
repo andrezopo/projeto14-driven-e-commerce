@@ -15,6 +15,10 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 export default StyledButton;
