@@ -389,14 +389,6 @@ const Categorias = styled.div`
       border: 1px solid var(--cor-detalhes);
       cursor: pointer;
     }
-
-    @media (max-width: 935px) {
-      width: 50%;
-    }
-
-    @media (max-width: 614px) {
-      width: 70%;
-    }
   }
 `;
 

@@ -9,6 +9,26 @@ function Produto({ produto }) {
   let preco = parseFloat(produto.valor);
   preco = preco.toFixed(2).replace(".", ",");
 
+  function incluirCarrinho(){
+    const dadosProduto = {
+      valor,
+      descricao,
+      tipo: "entrada"
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.post(
+      "http://localhost:5000/carrinho",
+      dadosProduto,
+      config
+    );
+  }
+
   return (
     <ProdutoStyle>
       <div>
