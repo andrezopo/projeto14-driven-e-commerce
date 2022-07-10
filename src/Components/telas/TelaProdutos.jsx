@@ -5,10 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-import maca from "../../assets/images/maca.webp";
+function Produto({ produto }) {
+
+  let preco = parseFloat(produto.valor)
+  preco = preco.toFixed(2).replace(".",",")
+
+  return (
+    <ProdutoStyle>
+      <div>
+        <img src={produto.imagem} alt="" />
+      </div>
+      <p>{produto.descricao}</p>
+      <h4>R$ {preco}</h4>
+      <div className="blocoCarrinho">
+        <h5>Adicionar ao carrinho</h5>
+      </div>
+    </ProdutoStyle>
+  );
+}
 
 export default function TelaProdutos({ categoriaInicial }) {
   const [categoria, setCategoria] = React.useState(categoriaInicial);
+  const [produtos, setProdutos] = React.useState([]);
 
   const navigate = useNavigate();
 
@@ -22,6 +40,26 @@ export default function TelaProdutos({ categoriaInicial }) {
     );
     navigate(`/produtos/${categoriaEscolhida}`);
   }
+
+  function carregarProdutos() {
+    const promise = axios.get("http://localhost:5000/produtos", {
+      headers: {
+        Categoria: categoria,
+      },
+    });
+
+    promise
+      .then((response) => {
+        setProdutos(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  React.useEffect(() => {
+    carregarProdutos();
+  });
 
   return (
     <>
@@ -59,7 +97,7 @@ export default function TelaProdutos({ categoriaInicial }) {
         </ListaCategorias>
         <ListaProdutos>
           <Cabecalho>
-            <h3>50 produtos</h3>
+            <h3>{produtos.length} produtos</h3>
             <select name="selecionar" id="selecionar">
               <option value="classificacao">Ordenar por:</option>
               <option value="menorPreco">Menor Preço</option>
@@ -68,126 +106,9 @@ export default function TelaProdutos({ categoriaInicial }) {
             </select>
           </Cabecalho>
           <Produtos>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
-            <Produto>
-              <img src={maca} alt="" />
-              <p>Lorem, ipsum dolor sit amet consectetur</p>
-              <h4>R$10,00</h4>
-              <div>
-                <h5>Adicionar ao carrinho</h5>
-              </div>
-            </Produto>
+            {produtos.map((produto, index) => (
+              <Produto key={index} produto={produto} />
+            ))}
           </Produtos>
         </ListaProdutos>
       </Universal>
@@ -330,7 +251,7 @@ const Produtos = styled.div`
   flex-wrap: wrap;
 `;
 
-const Produto = styled.div`
+const ProdutoStyle = styled.div`
   border: 1px solid var(--cor-borda);
   border-radius: 10px;
   width: 200px;
@@ -345,14 +266,16 @@ const Produto = styled.div`
 
   img {
     width: 120px;
-    margin-bottom: 10px;
+    height: 120px;
+    object-fit: cover;
+    margin: 10px 0;
     -webkit-transition: -webkit-transform 0.5s ease;
     transition: transform 0.5s ease;
   }
 
   p {
     text-align: center;
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 10px;
   }
 
@@ -363,7 +286,7 @@ const Produto = styled.div`
     margin-bottom: 10px;
   }
 
-  div {
+  div.blocoCarrinho {
     width: 100%;
     height: 100%;
     background-color: var(--cor-borda);
