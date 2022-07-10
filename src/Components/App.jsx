@@ -13,10 +13,27 @@ import TelaCheckout from "./telas/TelaCheckout.jsx";
 
 export default function App() {
   const [token, setToken] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [userId, setUserId] = React.useState("");
 
   return (
     <>
-      <Context.Provider value={{ token, setToken }}>
+      <Context.Provider
+        value={{
+          token,
+          setToken,
+          email,
+          setEmail,
+          password,
+          setPassword,
+          name,
+          setName,
+          userId,
+          setUserId,
+        }}
+      >
         <BrowserRouter>
           <Header />
           <Routes>

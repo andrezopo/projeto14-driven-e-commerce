@@ -34,7 +34,7 @@ export default function Header() {
         </div>
         <IconesInteracaoUsuario>
           <Link to="/usuario">
-            <div class="areaLoginCadastro">
+            <div className="areaLoginCadastro">
               <ion-icon name="person"></ion-icon>
               <p>Entre ou cadastre-se</p>
             </div>
