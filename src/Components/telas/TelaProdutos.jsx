@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 import RolarTopo from "../shared/RolarTopo";
 
 function Produto({ produto }) {
-
-  let preco = parseFloat(produto.valor)
-  preco = preco.toFixed(2).replace(".",",")
+  let preco = parseFloat(produto.valor);
+  preco = preco.toFixed(2).replace(".", ",");
 
   return (
     <ProdutoStyle>
@@ -27,6 +26,8 @@ function Produto({ produto }) {
 export default function TelaProdutos({ categoriaInicial }) {
   const [categoria, setCategoria] = React.useState(categoriaInicial);
   const [produtos, setProdutos] = React.useState([]);
+
+  const [opcaoSelecionada, setOpcaoSelecionada] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -57,9 +58,45 @@ export default function TelaProdutos({ categoriaInicial }) {
       });
   }
 
+  function opcoesClassificacao() {
+    if (opcaoSelecionada === "classificacao") {
+      setProdutos(produtos);
+    } else if (opcaoSelecionada === "menorPreco") {
+      function compare(a, b) {
+        if (a.valor < b.valor) return -1;
+        if (a.valor > b.valor) return 1;
+        return 0;
+      }
+      let arrayProdutosAtual = [...produtos];
+      setProdutos(arrayProdutosAtual.sort(compare));
+    } else if (opcaoSelecionada === "maiorPreco") {
+      function compare(a, b) {
+        if (a.valor < b.valor) return 1;
+        if (a.valor > b.valor) return -1;
+        return 0;
+      }
+      let arrayProdutosAtual = [...produtos];
+      setProdutos(arrayProdutosAtual.sort(compare));
+    } else if (opcaoSelecionada === "alfabetico") {
+      function compare(a, b) {
+        if (a.descricao < b.descricao) return -1;
+        if (a.descricao > b.descricao) return 1;
+        return 0;
+      }
+      let arrayProdutosAtual = [...produtos];
+      setProdutos(arrayProdutosAtual.sort(compare));
+    }
+  }
+
   React.useEffect(() => {
     carregarProdutos();
-  });
+  }, [categoria]);
+
+  React.useEffect(() => {
+    opcoesClassificacao();
+
+    console.log(produtos);
+  }, [opcaoSelecionada]);
 
   return (
     <>
@@ -98,8 +135,14 @@ export default function TelaProdutos({ categoriaInicial }) {
         <ListaProdutos>
           <Cabecalho>
             <h3>{produtos.length} produtos</h3>
-            <select name="selecionar" id="selecionar">
-              <option value="classificacao">Ordenar por:</option>
+            <select
+              name="selecionar"
+              id="selecionar"
+              onChange={(e) => setOpcaoSelecionada(e.target.value)}
+            >
+              <option value="classificacao" selected>
+                Ordenar por:
+              </option>
               <option value="menorPreco">Menor Preço</option>
               <option value="maiorPreco">Maior Preço</option>
               <option value="alfabetico">Ordem Alfabética (A - Z)</option>
