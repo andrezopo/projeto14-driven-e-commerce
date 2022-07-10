@@ -1,3 +1,8 @@
+import styled from "styled-components"
+import React from "react";
+
+import RolarTopo from "../shared/RolarTopo";
+
 import axios from "axios";
 import { useEffect } from "react";
 import { useContext, useState } from "react";
@@ -125,6 +130,7 @@ export default function TelaLoginCadastro() {
 
   return (
     <Universal>
+      <RolarTopo />
       <PageContentDiv>
         <SignInDiv>
           <StyledFormContainer check={confirmSignInForm}>
