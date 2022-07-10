@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import Context from "../../Context/Context";
 import styled from "styled-components";
 import React from "react";
 import axios from "axios";
@@ -5,16 +7,25 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-function Produto({ produto }) {
+function Produto({ produto, categoria }) {
+  const { token } = useContext(Context);
+
   let preco = parseFloat(produto.valor);
   preco = preco.toFixed(2).replace(".", ",");
 
-  function incluirCarrinho(){
+  const navigate = useNavigate();
+
+  function incluirCarrinho() {
     const dadosProduto = {
-      valor,
-      descricao,
-      tipo: "entrada"
+      imagem: produto.imagem,
+      valor: produto.valor,
+      descricao: produto.descricao,
+      categoria: categoria.toLowerCase(),
     };
+
+    if (token.length === 0) {
+      navigate("/usuario");
+    }
 
     const config = {
       headers: {
@@ -23,10 +34,22 @@ function Produto({ produto }) {
     };
 
     const promise = axios.post(
-      "http://localhost:5000/carrinho",
+      "https://organistore.herokuapp.com/carrinho",
       dadosProduto,
       config
     );
+
+    promise
+      .then((response) => {
+        console.log(response.data);
+        alert("Produto adicionado ao carrinho com sucesso!")
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400){
+          alert("Produto já inserido ao carrinho. Tente adicionar algum outro produto.")
+        }
+      });
   }
 
   return (
@@ -36,7 +59,7 @@ function Produto({ produto }) {
       </div>
       <p>{produto.descricao}</p>
       <h4>R$ {preco}</h4>
-      <div className="blocoCarrinho">
+      <div className="blocoCarrinho" onClick={incluirCarrinho}>
         <h5>Adicionar ao carrinho</h5>
       </div>
     </ProdutoStyle>
@@ -114,7 +137,7 @@ export default function TelaProdutos({ categoriaInicial }) {
 
   React.useEffect(() => {
     carregarProdutos();
-    resetarSelect(selecionar)
+    resetarSelect(selecionar);
   }, [categoria]);
 
   React.useEffect(() => {
@@ -173,7 +196,7 @@ export default function TelaProdutos({ categoriaInicial }) {
           </Cabecalho>
           <Produtos>
             {produtos.map((produto, index) => (
-              <Produto key={index} produto={produto} />
+              <Produto key={index} produto={produto} categoria={categoria} />
             ))}
           </Produtos>
         </ListaProdutos>
