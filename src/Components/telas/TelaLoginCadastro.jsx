@@ -49,7 +49,7 @@ export default function TelaLoginCadastro() {
       email,
       password,
     };
-    const promise = axios.post("http://localhost:5000/login", body);
+    const promise = axios.post("https://organistore.herokuapp.com/login", body);
     setDisable(true);
     promise.then((res) => {
       const userInfo = res.data;
@@ -108,7 +108,10 @@ export default function TelaLoginCadastro() {
       password: signUpPassword,
       confirmPassword,
     };
-    const promise = axios.post("http://localhost:5000/cadastro", body);
+    const promise = axios.post(
+      "https://organistore.herokuapp.com/cadastro",
+      body
+    );
     setDisable(true);
     promise.then(() => {
       setDisable(false);
