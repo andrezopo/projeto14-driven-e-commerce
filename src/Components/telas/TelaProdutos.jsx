@@ -88,14 +88,17 @@ export default function TelaProdutos({ categoriaInicial }) {
     }
   }
 
+  function resetarSelect(selecionar) {
+    selecionar.selectedIndex = 0;
+  }
+
   React.useEffect(() => {
     carregarProdutos();
+    resetarSelect(selecionar)
   }, [categoria]);
 
   React.useEffect(() => {
     opcoesClassificacao();
-
-    console.log(produtos);
   }, [opcaoSelecionada]);
 
   return (
