@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import RolarTopo from "../shared/RolarTopo";
 
 function Produto({ produto, categoria }) {
-  const { token } = useContext(Context);
+  const { token, userId } = useContext(Context);
 
   let preco = parseFloat(produto.valor);
   preco = preco.toFixed(2).replace(".", ",");
@@ -30,6 +30,7 @@ function Produto({ produto, categoria }) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
+        id: userId
       },
     };
 
