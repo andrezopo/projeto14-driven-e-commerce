@@ -30,9 +30,19 @@ function Produto({ produto, categoria }) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
-        id: userId
+        id: userId,
       },
     };
+
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
 
     const promise = axios.post(
       "https://organistore.herokuapp.com/carrinho",
@@ -42,13 +52,13 @@ function Produto({ produto, categoria }) {
 
     promise
       .then((response) => {
-        console.log(response.data);
-        alert("Produto adicionado ao carrinho com sucesso!")
+        alert("Produto adicionado ao carrinho com sucesso!");
       })
       .catch((error) => {
-        console.log(error);
-        if (error.response.status === 400){
-          alert("Produto já inserido ao carrinho. Tente adicionar algum outro produto.")
+        if (error.response.status === 400) {
+          alert(
+            "Produto já inserido ao carrinho. Tente adicionar algum outro produto."
+          );
         }
       });
   }

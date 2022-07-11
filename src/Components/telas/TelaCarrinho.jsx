@@ -17,6 +17,22 @@ function Produto({ produto, carregarProdutos, setArrayPrecos, arrayPrecos }) {
     React.useState(precoProduto);
 
   React.useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id: userId,
+      },
+    };
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
+
     setPrecoFinalProduto(opcaoQuantSelecionada * precoProduto);
   }, [opcaoQuantSelecionada]);
 
@@ -129,6 +145,22 @@ export default function TelaCarrinho() {
   }
 
   React.useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id: userId,
+      },
+    };
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
+
     carregarProdutos();
 
     for (let i = 0; i < entregas.length; i++) {
@@ -155,8 +187,6 @@ export default function TelaCarrinho() {
               key={index}
               produto={produto}
               carregarProdutos={carregarProdutos}
-              setArrayPrecos={setArrayPrecos}
-              arrayPrecos={arrayPrecos}
             />
           ))}
         </QuadroProdutos>

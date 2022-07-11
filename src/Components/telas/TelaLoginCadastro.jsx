@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import React from "react";
 
 import RolarTopo from "../shared/RolarTopo";
@@ -61,8 +61,7 @@ export default function TelaLoginCadastro() {
       setUserId(userInfo.id);
       setToken(userInfo.token);
       setDisable(false);
-
-      navigate("/", { replace: true });
+      navigate(-1, { replace: true });
     });
     promise.catch((err) => {
       setConfirmSignInForm("close");
@@ -118,8 +117,13 @@ export default function TelaLoginCadastro() {
     );
     setDisable(true);
     promise.then(() => {
+      setEmail(signUpEmail);
+      setPassword(signUpPassword);
+      setName("");
+      setSignUpEmail("");
+      setSignUpPassword("");
+      setConfirmPassword("");
       setDisable(false);
-      navigate("/", { replace: true });
     });
     promise.catch((err) => {
       setConfirmSignUpForm("close");
