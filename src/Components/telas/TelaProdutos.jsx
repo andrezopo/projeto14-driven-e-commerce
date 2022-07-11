@@ -30,9 +30,19 @@ function Produto({ produto, categoria }) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
-        id: userId
+        id: userId,
       },
     };
+
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
 
     const promise = axios.post(
       "https://organistore.herokuapp.com/carrinho",
