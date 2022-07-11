@@ -17,6 +17,13 @@ function Produto({ produto, carregarProdutos }) {
     React.useState(precoProduto);
 
   React.useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id: userId,
+        idProduto: produto._id,
+      },
+    };
     const prom = axios.put(
       "https://organistore.herokuapp.com/status",
       {},
