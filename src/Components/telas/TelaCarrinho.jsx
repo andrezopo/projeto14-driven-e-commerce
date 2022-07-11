@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-function Produto({ produto, carregarProdutos }) {
+function Produto({ produto, carregarProdutos, setArrayPrecos, arrayPrecos }) {
   const { token, userId } = useContext(Context);
 
   const precoProduto = produto.valor;
@@ -111,6 +111,10 @@ export default function TelaCarrinho() {
   ];
 
   const [produtosCarrinho, setProdutosCarrinho] = React.useState([]);
+
+  const [arrayPrecos, setArrayPrecos] = React.useState([]);
+
+  console.log(arrayPrecos)
 
   function carregarProdutos() {
     if (token.length === 0) {
