@@ -21,7 +21,6 @@ function Produto({ produto, carregarProdutos }) {
       headers: {
         Authorization: `Bearer ${token}`,
         id: userId,
-        idProduto: produto._id,
       },
     };
     const prom = axios.put(
