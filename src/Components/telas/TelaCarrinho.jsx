@@ -28,7 +28,7 @@ function Produto({ produto, carregarProdutos }) {
       },
     };
 
-    const promise = axios.delete("http://localhost:5000/carrinho", config);
+    const promise = axios.delete("https://organistore.herokuapp.com/carrinho", config);
 
     promise
       .then((response) => {
@@ -105,7 +105,7 @@ export default function TelaCarrinho() {
       },
     };
 
-    const promise = axios.get("http://localhost:5000/carrinho", config);
+    const promise = axios.get("https://organistore.herokuapp.com/carrinho", config);
 
     promise
       .then((response) => {
