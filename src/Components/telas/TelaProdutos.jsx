@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import RolarTopo from "../shared/RolarTopo";
 
 function Produto({ produto, categoria }) {
-  const { token } = useContext(Context);
+  const { token, userId } = useContext(Context);
 
   let preco = parseFloat(produto.valor);
   preco = preco.toFixed(2).replace(".", ",");
@@ -30,11 +30,12 @@ function Produto({ produto, categoria }) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
+        id: userId
       },
     };
 
     const promise = axios.post(
-      "https://organistore.herokuapp.com/carrinho",
+      "http://localhost:5000/carrinho",
       dadosProduto,
       config
     );
@@ -86,7 +87,7 @@ export default function TelaProdutos({ categoriaInicial }) {
   }
 
   function carregarProdutos() {
-    const promise = axios.get("https://organistore.herokuapp.com/produtos", {
+    const promise = axios.get("http://localhost:5000/produtos", {
       headers: {
         Categoria: categoria,
       },
