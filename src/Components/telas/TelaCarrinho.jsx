@@ -12,10 +12,17 @@ function Produto({ produto, carregarProdutos }) {
   const { token, userId } = useContext(Context);
 
   const precoProduto = produto.valor;
-  const [opcaoQuantSelecionada, setOpcaoQuantSelecionada] = React.useState(1);const [precoFinalProduto, setPrecoFinalProduto] =
-  React.useState(precoProduto);
+  const [opcaoQuantSelecionada, setOpcaoQuantSelecionada] = React.useState(1);
+  const [precoFinalProduto, setPrecoFinalProduto] =
+    React.useState(precoProduto);
 
   React.useEffect(() => {
+    const prom = axios.put("/status", {}, config);
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
+
     setPrecoFinalProduto(opcaoQuantSelecionada * precoProduto);
   }, [opcaoQuantSelecionada]);
 
@@ -28,13 +35,16 @@ function Produto({ produto, carregarProdutos }) {
       },
     };
 
-    const promise = axios.delete("https://organistore.herokuapp.com/carrinho", config);
+    const promise = axios.delete(
+      "https://organistore.herokuapp.com/carrinho",
+      config
+    );
 
     promise
       .then((response) => {
         console.log(response.data);
         alert("Produto removido com sucesso!");
-        carregarProdutos()
+        carregarProdutos();
       })
       .catch((error) => {
         console.log(error);
@@ -105,7 +115,10 @@ export default function TelaCarrinho() {
       },
     };
 
-    const promise = axios.get("https://organistore.herokuapp.com/carrinho", config);
+    const promise = axios.get(
+      "https://organistore.herokuapp.com/carrinho",
+      config
+    );
 
     promise
       .then((response) => {
@@ -118,6 +131,12 @@ export default function TelaCarrinho() {
   }
 
   React.useEffect(() => {
+    const prom = axios.put("/status", {}, config);
+    prom.catch(() => {
+      alert("Sessão expirada!");
+      navigate("/usuario", { replace: true });
+    });
+
     carregarProdutos();
 
     for (let i = 0; i < entregas.length; i++) {
@@ -140,7 +159,11 @@ export default function TelaCarrinho() {
           </Cabecalho>
 
           {produtosCarrinho.map((produto, index) => (
-            <Produto key={index} produto={produto} carregarProdutos={carregarProdutos}/>
+            <Produto
+              key={index}
+              produto={produto}
+              carregarProdutos={carregarProdutos}
+            />
           ))}
         </QuadroProdutos>
         <QuadroFrete>
