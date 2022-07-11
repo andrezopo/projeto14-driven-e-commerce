@@ -25,22 +25,25 @@ export default function TelaCheckout() {
 
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     const config = {
-  //       Authorization: `Bearer ${token}`,
-  //       id: userId,
-  //     };
+  useEffect(() => {
+    const config = {
+      Authorization: `Bearer ${token}`,
+      id: userId,
+    };
 
-  //     const promise = axios.get("/carrinho", config);
-  //     promise.then((res) => {
-  //       const products = res.data;
-  //       setCartProducts(products);
-  //     });
-  //     promise.catch(() => {
-  //       alert("Sessão expirada");
-  //       navigate("/usuario", { replace: true });
-  //     });
-  //   }, []);
+    const promise = axios.get(
+      "https://organistore.herokuapp.com/carrinho",
+      config
+    );
+    promise.then((res) => {
+      const products = res.data;
+      setCartProducts(products);
+    });
+    promise.catch(() => {
+      alert("Sessão expirada");
+      navigate("/usuario", { replace: true });
+    });
+  }, []);
 
   function paymentInputs() {
     if (payMethod === "Cartao") {
