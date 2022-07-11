@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-function Produto({ produto, carregarProdutos}) {
+function Produto({ produto, carregarProdutos }) {
   const { token, userId } = useContext(Context);
 
   const precoProduto = produto.valor;
@@ -138,9 +138,9 @@ export default function TelaCarrinho() {
       });
   }
 
-  function finalizarCompra(){
-    if (opcaoFreteSelecionado === ""){
-      alert("É necessário informar um local de entrega")
+  function finalizarCompra() {
+    if (opcaoFreteSelecionado === "") {
+      alert("É necessário informar um local de entrega");
     } else {
       navigate("/checkout");
     }
@@ -171,13 +171,13 @@ export default function TelaCarrinho() {
       }
     }
 
-    let soma = 0
+    let soma = 0;
 
-    for (let i = 0; i < produtosCarrinho.length; i++){
-      soma += produtosCarrinho[i].valor
+    for (let i = 0; i < produtosCarrinho.length; i++) {
+      soma += produtosCarrinho[i].valor;
     }
 
-    setPrecoTotal(soma)
+    setPrecoTotal(soma);
   }, [opcaoFreteSelecionado]);
 
   return (
@@ -252,7 +252,10 @@ export default function TelaCarrinho() {
             </div>
             <div className="total">
               <p>Valor total</p>
-              <h2>R$ {(precoTotal + localEntrega.valor).toFixed(2).replace(".", ",")}</h2>
+              <h2>
+                R${" "}
+                {(precoTotal + localEntrega.valor).toFixed(2).replace(".", ",")}
+              </h2>
             </div>
             <div className="botao">
               <button onClick={finalizarCompra}>Finalizar compra</button>

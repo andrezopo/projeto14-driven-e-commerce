@@ -27,8 +27,7 @@ export default function TelaCheckout() {
 
   useEffect(() => {
     const config = {
-      Authorization: `Bearer ${token}`,
-      id: userId,
+      headers: { Authorization: `Bearer ${token}`, id: userId },
     };
 
     const prom = axios.put(
@@ -100,8 +99,7 @@ export default function TelaCheckout() {
   async function confirmPurchase(e) {
     e.preventDefault();
     const config = {
-      Authorization: `Bearer ${token}`,
-      id: userId,
+      headers: { Authorization: `Bearer ${token}`, id: userId },
     };
     let body = {};
     if (!street || !block || !city) {
@@ -121,7 +119,11 @@ export default function TelaCheckout() {
         option: payMethod,
       };
     }
-    const promise = axios.post("https://organistore.herokuapp.com/checkout", body, config);                   
+    const promise = axios.post(
+      "https://organistore.herokuapp.com/checkout",
+      body,
+      config
+    );
     promise.then(() => {
       alert("Compra finalizada com sucesso!");
     });
