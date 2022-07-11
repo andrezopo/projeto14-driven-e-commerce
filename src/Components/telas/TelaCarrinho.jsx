@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-function Produto({ produto, carregarProdutos }) {
+function Produto({ produto, carregarProdutos, setArrayPrecos, arrayPrecos }) {
   const { token, userId } = useContext(Context);
 
   const precoProduto = produto.valor;
-  const [opcaoQuantSelecionada, setOpcaoQuantSelecionada] = React.useState(1);const [precoFinalProduto, setPrecoFinalProduto] =
-  React.useState(precoProduto);
+  const [opcaoQuantSelecionada, setOpcaoQuantSelecionada] = React.useState(1);
+  const [precoFinalProduto, setPrecoFinalProduto] =
+    React.useState(precoProduto);
 
   React.useEffect(() => {
     setPrecoFinalProduto(opcaoQuantSelecionada * precoProduto);
@@ -28,13 +29,16 @@ function Produto({ produto, carregarProdutos }) {
       },
     };
 
-    const promise = axios.delete("https://organistore.herokuapp.com/carrinho", config);
+    const promise = axios.delete(
+      "https://organistore.herokuapp.com/carrinho",
+      config
+    );
 
     promise
       .then((response) => {
         console.log(response.data);
         alert("Produto removido com sucesso!");
-        carregarProdutos()
+        carregarProdutos();
       })
       .catch((error) => {
         console.log(error);
@@ -92,6 +96,10 @@ export default function TelaCarrinho() {
 
   const [produtosCarrinho, setProdutosCarrinho] = React.useState([]);
 
+  const [arrayPrecos, setArrayPrecos] = React.useState([]);
+
+  console.log(arrayPrecos)
+
   function carregarProdutos() {
     if (token.length === 0) {
       navigate("/usuario");
@@ -105,7 +113,10 @@ export default function TelaCarrinho() {
       },
     };
 
-    const promise = axios.get("https://organistore.herokuapp.com/carrinho", config);
+    const promise = axios.get(
+      "https://organistore.herokuapp.com/carrinho",
+      config
+    );
 
     promise
       .then((response) => {
@@ -140,7 +151,13 @@ export default function TelaCarrinho() {
           </Cabecalho>
 
           {produtosCarrinho.map((produto, index) => (
-            <Produto key={index} produto={produto} carregarProdutos={carregarProdutos}/>
+            <Produto
+              key={index}
+              produto={produto}
+              carregarProdutos={carregarProdutos}
+              setArrayPrecos={setArrayPrecos}
+              arrayPrecos={arrayPrecos}
+            />
           ))}
         </QuadroProdutos>
         <QuadroFrete>
