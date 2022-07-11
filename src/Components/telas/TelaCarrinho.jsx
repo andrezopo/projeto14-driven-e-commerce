@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import RolarTopo from "../shared/RolarTopo";
 
-function Produto({ produto, carregarProdutos, setArrayPrecos, arrayPrecos }) {
+function Produto({ produto, carregarProdutos}) {
   const { token, userId } = useContext(Context);
 
   const precoProduto = produto.valor;
