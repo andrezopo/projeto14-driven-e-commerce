@@ -31,7 +31,11 @@ export default function TelaCheckout() {
       id: userId,
     };
 
-    const prom = axios.put("/status", {}, config);
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
     prom.catch(() => {
       alert("Sessão expirada!");
       navigate("/usuario", { replace: true });
