@@ -121,7 +121,7 @@ export default function TelaCheckout() {
         option: payMethod,
       };
     }
-    const promise = axios.post("/checkout", body, config);
+    const promise = axios.post("https://organistore.herokuapp.com/checkout", body, config);                   
     promise.then(() => {
       alert("Compra finalizada com sucesso!");
     });
