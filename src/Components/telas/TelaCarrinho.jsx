@@ -79,10 +79,6 @@ function Produto({ produto, carregarProdutos}) {
           onChange={(e) => setOpcaoQuantSelecionada(e.target.value)}
         >
           <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
         </select>
       </div>
       <div className="outro">
@@ -112,9 +108,7 @@ export default function TelaCarrinho() {
 
   const [produtosCarrinho, setProdutosCarrinho] = React.useState([]);
 
-  const [arrayPrecos, setArrayPrecos] = React.useState([]);
-
-  console.log(arrayPrecos)
+  const [precoTotal, setPrecoTotal] = React.useState(0);
 
   function carregarProdutos() {
     if (token.length === 0) {
@@ -144,6 +138,14 @@ export default function TelaCarrinho() {
       });
   }
 
+  function finalizarCompra(){
+    if (opcaoFreteSelecionado === ""){
+      alert("É necessário informar um local de entrega")
+    } else {
+      navigate("/checkout");
+    }
+  }
+
   React.useEffect(() => {
     const config = {
       headers: {
@@ -168,6 +170,14 @@ export default function TelaCarrinho() {
         setLocalEntrega(entregas[i]);
       }
     }
+
+    let soma = 0
+
+    for (let i = 0; i < produtosCarrinho.length; i++){
+      soma += produtosCarrinho[i].valor
+    }
+
+    setPrecoTotal(soma)
   }, [opcaoFreteSelecionado]);
 
   return (
@@ -230,7 +240,7 @@ export default function TelaCarrinho() {
           <ResumoTotal>
             <div>
               <p>Total carrinho</p>
-              <h2>R$ 135,00</h2>
+              <h2>R$ {precoTotal.toFixed(2).replace(".", ",")}</h2>
             </div>
             <div>
               <p>Valor frete</p>
@@ -242,10 +252,10 @@ export default function TelaCarrinho() {
             </div>
             <div className="total">
               <p>Valor total</p>
-              <h2>R$ 135,00</h2>
+              <h2>R$ {(precoTotal + localEntrega.valor).toFixed(2).replace(".", ",")}</h2>
             </div>
             <div className="botao">
-              <button>Finalizar compra</button>
+              <button onClick={finalizarCompra}>Finalizar compra</button>
             </div>
           </ResumoTotal>
         </QuadroTotal>
