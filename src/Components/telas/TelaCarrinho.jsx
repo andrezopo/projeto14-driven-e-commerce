@@ -17,21 +17,21 @@ function Produto({ produto, carregarProdutos }) {
     React.useState(precoProduto);
 
   React.useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        id: userId,
-      },
-    };
-    const prom = axios.put(
-      "https://organistore.herokuapp.com/status",
-      {},
-      config
-    );
-    prom.catch(() => {
-      alert("Sessão expirada!");
-      navigate("/usuario", { replace: true });
-    });
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     id: userId,
+    //   },
+    // };
+    // const prom = axios.put(
+    //   "https://organistore.herokuapp.com/status",
+    //   {},
+    //   config
+    // );
+    // prom.catch(() => {
+    //   alert("Sessão expirada!");
+    //   navigate("/usuario", { replace: true });
+    // });
 
     setPrecoFinalProduto(opcaoQuantSelecionada * precoProduto);
   }, [opcaoQuantSelecionada]);
@@ -141,7 +141,17 @@ export default function TelaCarrinho() {
   }
 
   React.useEffect(() => {
-    const prom = axios.put("/status", {}, config);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id: userId,
+      },
+    };
+    const prom = axios.put(
+      "https://organistore.herokuapp.com/status",
+      {},
+      config
+    );
     prom.catch(() => {
       alert("Sessão expirada!");
       navigate("/usuario", { replace: true });
