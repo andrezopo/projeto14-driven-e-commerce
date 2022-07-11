@@ -41,13 +41,13 @@ function Produto({ produto, categoria }) {
 
     promise
       .then((response) => {
-        console.log(response.data);
-        alert("Produto adicionado ao carrinho com sucesso!")
+        alert("Produto adicionado ao carrinho com sucesso!");
       })
       .catch((error) => {
-        console.log(error);
-        if (error.response.status === 400){
-          alert("Produto já inserido ao carrinho. Tente adicionar algum outro produto.")
+        if (error.response.status === 400) {
+          alert(
+            "Produto já inserido ao carrinho. Tente adicionar algum outro produto."
+          );
         }
       });
   }

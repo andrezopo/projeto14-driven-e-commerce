@@ -1,11 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Context from "../../Context/Context";
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Header() {
-  const { token, name } = useContext(Context);
+  const { token, name, userId } = useContext(Context);
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id: userId,
+      },
+    };
+    const promise = axios.get(
+      "https://organistore.herokuapp.com/senha",
+      config
+    );
+    promise.then((res) => {
+      setIsLogged(true);
+    });
+    promise.catch((err) => {
+      setIsLogged(false);
+    });
+  }, [token]);
 
   return (
     <HeaderEstilo>
@@ -38,19 +59,22 @@ export default function Header() {
           </Link>
         </div>
         <IconesInteracaoUsuario>
-          <Link to="/usuario">
-            {token.length === 0 ? (
+          {!isLogged ? (
+            <Link to="/usuario">
               <div className="areaLoginCadastro">
                 <ion-icon name="person"></ion-icon>
                 <p>Entre ou cadastre-se</p>
               </div>
-            ) : (
+            </Link>
+          ) : (
+            <Link to="/informacoes">
               <div className="areaLoginCadastro">
                 <ion-icon name="person"></ion-icon>
                 <p>Bem vindo(a) {name}</p>
               </div>
-            )}
-          </Link>
+            </Link>
+          )}
+
           <Link to="/carrinho">
             <ion-icon name="cart"></ion-icon>
           </Link>
